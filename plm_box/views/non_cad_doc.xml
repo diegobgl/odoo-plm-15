@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+        <record id="plm_box_form_view" model="ir.ui.view">
+            <field name="name">plm.box.form</field>
+            <field name="model">plm.box</field>
+            <field name="type">form</field>
+        	<field name="priority" eval="10"/>
+            <field name="arch" type="xml">
+                <form string="Show Non CAD Document Relation">
+	               <header>
+	                    <button name="release" states="confirmed" string="Release Box" class="oe_highlight"/>
+	                    <button name="correct" states="confirmed" string="Correct Box" />
+	                    <button name="confirm" states="draft" string="Confirm Box" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,released" statusbar_colors='{"undermodify":"red","obsoleted":"red"}' readonly="0"/>
+	               </header>
+                <sheet>
+                <group>
+	                	<field name="name" readonly="1"/>
+	                	<field name="write_date" readonly="1"/>
+	                	<field name="create_date" readonly="1"/>
+	                    <field name="description" widget="link"/>
+	                    <field name="version" />
+	                    <field name="document_rel" />
+	                    <field name="plm_box_rel" />
+	                    <field name="groups_rel" />
+
+                </group>
+                <notebook>
+                    <page string="Products">
+                    	<label for="product_id"/>
+	                    <field name="product_id"/>
+                    </page>
+                    <page string="Projects">
+                    	<label for="project_id"/>
+	                    <field name="project_id"/>
+                    </page>
+                    <page string="Tasks">
+                    	<label for="task_id"/>
+	                    <field name="task_id"/>
+                    </page>
+                    <page string="Sale Orders">
+                    	<label for="sale_ord_id"/>
+	                    <field name="sale_ord_id"/>
+                    </page>
+                    <page string="Users">
+                    	<label for="user_rel_id"/>
+	                    <field name="user_rel_id"/>
+                    </page>
+                    <page string="Boms">
+                    	<label for="bom_id"/>
+	                    <field name="bom_id"/>
+                    </page>
+                    <page string="Workcenters">
+                    	<label for="wc_id"/>
+	                    <field name="wc_id"/>
+                    </page>
+                </notebook>
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+               </form>
+            </field>
+        </record>
+        
+       <record id="plm_box_tree" model="ir.ui.view">
+            <field name="name">plm.box.tree</field>
+            <field name="model">plm.box</field>
+            <field name="type">tree</field>
+        	<field name="priority" eval="10"/>
+            <field name="arch" type="xml">
+                <tree string="Non CAD Document Relations">
+                	<field name="name" />
+                    <field name="description" />
+                    <field name="document_rel" />
+                    <field name="plm_box_rel" />
+                    <field name="version" />
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="action_non_cad_doc">
+    	<field name="name">Non CAD Document Relations</field>
+    	 <field name="res_model">plm.box</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="plm_box_tree"/>
+    </record>
+
+    <menuitem
+        name="Search on Non CAD Document Relations"
+        action="action_non_cad_doc"
+        id="menu_non_cad_doc_relations"
+        parent="plm.ir_attachment_form"/>
+        
+</data>
+</odoo>
